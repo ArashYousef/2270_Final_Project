@@ -15,10 +15,12 @@ Final Project
 
 using namespace std;
 
-void Graph::addVertex(string name)
+void Graph::addVertex(string name, int fuel, int structures)
 {
   vertex v;
   v.name = name;
+  v.structures = structures;
+  v.fuel = fuel;
   vertices.push_back(v);
 }
 
@@ -60,7 +62,7 @@ void Graph::simulateFire()
       {
         chance += vertices[j].Edges[i].v->severity;
       }
-      chance += fuel;
+      chance += vertices[j].fuel;
       int random = rand() % 30 + 1;
       if(chance >= random)
       {
@@ -352,7 +354,7 @@ int main(int argc, char const *argv[])
   skyMap.addEdge(Southtown, Fancytown, 11);
   skyMap.addEdge(Southtown, Rothstown, 14);
 
-  skyMap.movePilot(Rothstown);
+  skyMap.movePilot(Southtown);
   landMap.vertices[0].onFire = true;
   landMap.vertices[0].severity = 5;
 
@@ -364,7 +366,7 @@ int main(int argc, char const *argv[])
     cin >> choice;
     landMap.movePilot(choice);
     landMap.fightFire();
-  
+
   }
   return 0;
 }

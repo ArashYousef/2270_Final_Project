@@ -13,7 +13,7 @@ Final Project
 
 struct vertex;
 
-struct pilot
+struct Pilot
 {
   vertex *v;
 };
@@ -72,7 +72,7 @@ class Graph
 
   private:
     std::vector<vertex> vertices; //stores vertices
-
+    Pilot * pilot;
     vertex *findVertex(std::string name);
     //finds a desired vertex
 
