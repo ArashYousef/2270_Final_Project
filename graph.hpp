@@ -13,7 +13,7 @@ Final Project
 
 struct vertex;
 
-struct pilot
+struct Pilot
 {
   vertex *v;
 };
@@ -31,6 +31,7 @@ struct vertex //add containment
     int fuel; //scale from 1-5
     int structures;//number of occupied structures in area
     int contain; //scale 0-100
+    int windSpeed;
     bool onFire;
     bool isGone;
     bool visited;
@@ -56,7 +57,7 @@ class Graph
     void displayEdges();
     //prints all the edges of the graph
 
-    void simulateFire(vertex *v);
+    void simulateFire();
     //function to simulate the spread of fire
 
     void movePilot(std::string name);
@@ -91,7 +92,7 @@ class Graph
     int maxSize;
     int currentSize;
     std::vector<vertex> vertices; //stores vertices
-
+    Pilot * pilot;
     vertex *findVertex(std::string name);
     //finds a desired vertex
 
