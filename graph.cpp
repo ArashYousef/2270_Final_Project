@@ -15,6 +15,7 @@ Final Project
 
 using namespace std;
 
+/*Function to create a new vertex*/
 void Graph::addVertex(string name, int fuel, int structures)
 {
   vertex v;
@@ -24,6 +25,7 @@ void Graph::addVertex(string name, int fuel, int structures)
   vertices.push_back(v);
 }
 
+/*Function to add a new edge the a vertices*/
 void Graph::addEdge(string v1, string v2, int distance)
 {
   for(int i = 0; i < vertices.size(); i++)
@@ -44,7 +46,7 @@ void Graph::addEdge(string v1, string v2, int distance)
   }
 }
 
-//
+/*Function to calculate the fires severity*/
 int Graph::calcSev(vertex* location)
 {
   int severity = 0;
@@ -86,16 +88,19 @@ void Graph::simulateFire()
   }
 }
 
+/*Funtion to update pilot competetion*/
 void Graph::movePilot(std::string name)
 {
   pilot->v = findVertex(name);
 }
 
+/*Update the containment after fighting fire*/
 void Graph::fightFire()
 {
   pilot->v->contain += 5;
 }
 
+/*Function to print edges*/
 void Graph::displayEdges()
 {
   for(int i = 0; i < vertices.size(); i++)
@@ -158,6 +163,7 @@ void Graph::displayEdges()
 //   }
 // }
 
+/*Fucntion to clear all veritces*/
 void Graph::setAllVerticesUnvisited()
 {
   for(int i = 0; i < vertices.size(); i++)
@@ -166,6 +172,7 @@ void Graph::setAllVerticesUnvisited()
   }
 }
 
+/*Function to find a vertex*/
 vertex* Graph::findVertex(string name)
 {
   for(int i = 0; i < vertices.size(); i++)
@@ -177,11 +184,13 @@ vertex* Graph::findVertex(string name)
   }
 }
 
+/*Graph constructor*/
 Graph::Graph()
 {
   vector<vertex> vertices;
 }
 
+/*Graph desconstructor*/
 Graph::~Graph()
 {
   while(!vertices.empty())
@@ -352,16 +361,32 @@ int main(int argc, char const *argv[])
   landMap.vertices[0].onFire = true;
   landMap.vertices[0].severity = 5;
 
+  //add towns to the queue
+  landMap.enqueue(Rothstown);
+  landMap.enqueue(BoizTrailerPark);
+  landMap.enqueue(Fancytown);
+  landMap.enqueue(IndustrialZone);
+  landMap.enqueue(WestForest);
+  landMap.enqueue(Southtown);
+  landMap.enqueue(EastForest);
+  landMap.enqueue(Mountains);
+  landMap.enqueue(Southtown);
 
-
+  int i;
   while(1)
   {
     string choice;
-    landMap.simulateFire();
-    //PriorityQueue
-    cin >> choice;
-    landMap.movePilot(choice);
-    landMap.fightFire();
+    landMap.simulateFire();//simulate the fire
+    //check to see if fire has been contained
+    for(i=1;i<=maxSize;i++){
+      if(fireQueue[i]->contain == 100){
+      landMap.dequeue(fireQueue[i]);
+      }
+    }
+    landMap.reheap(1);//fix the priority queue with new values from simulation
+    cin >> choice;//get user input for pilot motion
+    landMap.movePilot(choice);//move pilot to choice
+    landMap.fightFire();//update after fighting fire
 
   }
   return 0;

@@ -7,16 +7,19 @@
 
 using namespace std;
 
+/*Priority queue constructor*/
 Graph::PriorityQueue(int iQueueSize){
   maxSize = iQueueSize;
   fireQueue = new vertex[maxSize + 1];
   currentSize = 0;
 }
 
+/*Priority queue deconstructor*/
 Graph::~PriorityQueue(){
   delete[] fireQueue;
 }
 
+/*Function to put a new item into the pq*/
 void PriorityQueue::enqueue(vertex *location){
   if(!isFull()){
     currentSize++;
@@ -27,6 +30,7 @@ void PriorityQueue::enqueue(vertex *location){
   }
 }
 
+/*function to remove a fire from the pq*/
 void PriorityQueue::dequeue(){
   if(isEmpty()){
     cout<<"Queue empty, cannot dequeue an item."<<endl;
@@ -60,7 +64,7 @@ void PriorityQueue::dequeue(){
 // }
 
 
-
+/*Function to check if pq is full*/
 bool PriorityQueue::isFull(){
   if(currentSize == maxSize){
     return true;
@@ -69,6 +73,7 @@ bool PriorityQueue::isFull(){
   }
 }
 
+/*Function to check if pq is empty*/
 bool PriorityQueue::isEmpty(){
   if(currentSize < 1){
     return true;
@@ -77,12 +82,14 @@ bool PriorityQueue::isEmpty(){
   }
 }
 
+/*Funtion used to swap a two nodes*/
 void swap(vertex* fireQueue, int childI, int parentI){
   PatientNode temp = fireQueue[childI];
   fireQueue[childI] = fireQueue[parentI];
   fireQueue[parentI] = temp;
 }
 
+/*Funtion to fix queue after adding a new item*/
 void PriorityQueue::repairUpward(int nodeIndex){
   int tempSize = nodeIndex;
   if(!isEmpty()){
@@ -100,6 +107,7 @@ void PriorityQueue::repairUpward(int nodeIndex){
   }
 }
 
+/*Function to reorder the pq after removal or updating severity and containment*/
 void PriorityQueue::repairDownward(int nodeIndex){
   int tempIndex = nodeIndex, tempIndex2 = 0;
   while(tempIndex*2 <= currentSize){
