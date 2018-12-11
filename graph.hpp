@@ -29,7 +29,7 @@ struct vertex //add containment
     std::string name;
     int severity; //scale from 0-10
     int fuel; //scale from 1-5
-    int structures;
+    int structures;//number of occupied structures in area
     int contain; //scale 0-100
     int windSpeed;
     bool onFire;
@@ -70,11 +70,34 @@ class Graph
     void setAllVerticesUnvisited();
     //pretty self explanatory
 
+    //pq constructor
+    PriorityQueue(int queueSize);
+
+    //pq deconstructor
+    ~PriorityQueue();
+
+    //add item to pq
+    void enqueue (std::string _name, int _injurySeverity, int _treatmentTime);
+
+    //take item out
+    void dequeue();
+
+    //checks if queue is full
+    bool isFull();
+
+    //checks if queue is empty
+    bool isEmpty();
+
   private:
+    int maxSize;
+    int currentSize;
     std::vector<vertex> vertices; //stores vertices
     Pilot * pilot;
     vertex *findVertex(std::string name);
     //finds a desired vertex
+
+    //function to calculate severity of fire
+    int calcSev();
 
     // void BFTraversalLabel(std::string startingCity, int distID);
     //
