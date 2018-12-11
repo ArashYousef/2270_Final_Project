@@ -73,7 +73,7 @@ class Graph
     PriorityQueue(int queueSize);
 
     //pq deconstructor
-    ~PriorityQueue();
+    //~PriorityQueue();
 
     //add item to pq
     void enqueue (std::string _name, int _injurySeverity, int _treatmentTime);
@@ -87,16 +87,18 @@ class Graph
     //checks if queue is empty
     bool isEmpty();
 
+    int currentSize;
+    vertex * fireQueue;
   private:
     int maxSize;
-    int currentSize;
+
     std::vector<vertex> vertices; //stores vertices
     Pilot * pilot;
     vertex *findVertex(std::string name);
     //finds a desired vertex
 
     //function to calculate severity of fire
-    int calcSev(vertex * location);
+    int calcSev(vertex* location);
 
     // void BFTraversalLabel(std::string startingCity, int distID);
     //

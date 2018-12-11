@@ -51,7 +51,7 @@ void Graph::addEdge(string v1, string v2, int distance)
 int Graph::calcSev(vertex* location)
 {
   int severity = 0;
-  severity += location.structures + location.fuel + location.windSpeed;
+  severity += location->structures + location->fuel + location->windSpeed;
   return severity;
 }
 
@@ -73,7 +73,7 @@ void Graph::simulateFire()
         if(chance/2 >= random)
       {
         vertices[j].onFire = true;
-        vertices[j].severity = calcSev(vertices[j]);
+        vertices[j].severity = calcSev(*vertices[j]);
         return;
       }
     }
@@ -379,7 +379,7 @@ int main(int argc, char const *argv[])
     string choice;
     landMap.simulateFire();//simulate the fire
     //check to see if fire has been contained
-    for(i=1;i<=maxSize;i++){
+    for(i=1;i<=currentSize;i++){
       if(fireQueue[i]->contain == 100){
       landMap.dequeue(fireQueue[i]);
       }
