@@ -358,6 +358,8 @@ int main(int argc, char const *argv[])
   landMap.vertices[0].onFire = true;
   landMap.vertices[0].severity = 5;
 
+
+
   while(1)
   {
     string choice;

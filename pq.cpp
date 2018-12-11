@@ -17,14 +17,10 @@ Graph::~PriorityQueue(){
   delete[] fireQueue;
 }
 
-void PriorityQueue::enqueue(std::string _name, int _injurySeverity, int _treatmentTime){
-  vertex temp;
-  temp.name = _name;
-  temp.injurySeverity = _injurySeverity;
-  temp.treatmentTime = _treatmentTime;
+void PriorityQueue::enqueue(vertex *location){
   if(!isFull()){
     currentSize++;
-    fireQueue[currentSize] = temp;
+    fireQueue[currentSize] = location;
     repairUpward(currentSize);
   }else{
     cout<<"Queue is Full"<<endl;
@@ -91,12 +87,12 @@ void PriorityQueue::repairUpward(int nodeIndex){
   int tempSize = nodeIndex;
   if(!isEmpty()){
     while(tempSize != 1){
-      if(fireQueue[tempSize].severity == fireQueue[tempSize/2].severity){
-        if(fireQueue[tempSize/2].contain < fireQueue[tempSize].contain){
+      if(fireQueue[tempSize]->severity == fireQueue[tempSize/2]->severity){
+        if(fireQueue[tempSize/2]->contain < fireQueue[tempSize]->contain){
           swap(fireQueue, tempSize, tempSize/2);
         }
       }
-      else if(fireQueue[tempSize].severity > fireQueue[tempSize/2].severity){
+      else if(fireQueue[tempSize]->severity > fireQueue[tempSize/2]->severity){
         swap(fireQueue, tempSize/2, tempSize);
       }
       tempSize = tempSize/2;
@@ -108,31 +104,31 @@ void PriorityQueue::repairDownward(int nodeIndex){
   int tempIndex = nodeIndex, tempIndex2 = 0;
   while(tempIndex*2 <= currentSize){
     if(tempIndex*2 == currentSize){
-      if(fireQueue[tempIndex].severity == fireQueue[tempIndex*2].severity){
-        if(fireQueue[tempIndex*2].contain > fireQueue[tempIndex].contain){
+      if(fireQueue[tempIndex]->severity == fireQueue[tempIndex*2]->severity){
+        if(fireQueue[tempIndex*2]->contain > fireQueue[tempIndex]->contain){
           swap(fireQueue, tempIndex, tempIndex*2);
         }
         return;
       }
-      else if(fireQueue[tempIndex].severity < fireQueue[tempIndex*2].severity){
+      else if(fireQueue[tempIndex]->severity < fireQueue[tempIndex*2]->severity){
         swap(priorityQueue, tempIndex, tempIndex*2);
         return;
       }
       return;
     }else{
-      if(fireQueue[tempIndex*2].severity == fireQueue[tempIndex*2+1].severity){
-        tempIndex2 = (fireQueue[tempIndex*2+1].contain < priorityQueue[tempIndex*2].contain) ? (tempIndex*2) : (tempIndex*2+1);
+      if(fireQueue[tempIndex*2]->severity == fireQueue[tempIndex*2+1]->severity){
+        tempIndex2 = (fireQueue[tempIndex*2+1]->contain < priorityQueue[tempIndex*2]->contain) ? (tempIndex*2) : (tempIndex*2+1);
       }
-      else if(fireQueue[tempIndex*2].severity > fireQueue[tempIndex*2+1].severity){
+      else if(fireQueue[tempIndex*2]->severity > fireQueue[tempIndex*2+1]->severity){
         tempIndex2 = tempIndex*2;
       }else{
         tempIndex2 = tempIndex*2+1;
       }
-      if(fireQueue[tempIndex].severity < fireQueue[tempIndex2].severity){
+      if(fireQueue[tempIndex]->severity < fireQueue[tempIndex2]->severity){
         swap(fireQueue, tempIndex, tempIndex2);
       }
-      else if(fireQueue[tempIndex2].severity == fireQueue[tempIndex].severity){
-        if(fireQueue[tempIndex].contain < priorityQueue[tempIndex2].contain){
+      else if(fireQueue[tempIndex2]->severity == fireQueue[tempIndex]->severity){
+        if(fireQueue[tempIndex]->contain < priorityQueue[tempIndex2]->contain){
           swap(fireQueue, tempIndex, tempIndex2);
         }
       }

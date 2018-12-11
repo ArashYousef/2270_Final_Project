@@ -31,7 +31,7 @@ struct vertex //add containment
     int fuel; //scale from 1-5
     int structures;//number of occupied structures in area
     int contain; //scale 0-100
-    int windSpeed;
+    int windSpeed;// scale of 1-30
     bool onFire;
     bool isGone;
     bool visited;
