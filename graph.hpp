@@ -27,13 +27,12 @@ struct Edge
 struct vertex //add containment
 {
     std::string name;
-    int severity; //scale from 0-10
+    int severity;
     int fuel; //scale from 1-5
     int structures;//number of occupied structures in area
     int contain; //scale 0-100
     int windSpeed;// scale of 1-30
     bool onFire;
-    bool isGone;
     bool visited;
     std::vector<Edge> Edges;
 };
@@ -51,7 +50,7 @@ class Graph
     void addEdge(std::string v1, std::string v2, int distance);
     //creates an edge between two nodes
 
-    void addVertex(std::string name, int fuel, int structures);
+    void addVertex(std::string name, int fuel, int structures, int windSpeed);
     //creates a new vertex
 
     void displayEdges();
@@ -97,7 +96,7 @@ class Graph
     //finds a desired vertex
 
     //function to calculate severity of fire
-    int calcSev();
+    int calcSev(vertex * location);
 
     // void BFTraversalLabel(std::string startingCity, int distID);
     //
