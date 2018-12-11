@@ -16,12 +16,13 @@ Final Project
 using namespace std;
 
 /*Function to create a new vertex*/
-void Graph::addVertex(string name, int fuel, int structures)
+void Graph::addVertex(string name, int fuel, int structures, int windSpeed)
 {
   vertex v;
   v.name = name;
   v.structures = structures;
   v.fuel = fuel;
+  v.windSpeed = windSpeed;
   vertices.push_back(v);
 }
 
