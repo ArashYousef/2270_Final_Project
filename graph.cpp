@@ -44,17 +44,20 @@ void Graph::addEdge(string v1, string v2, int distance)
   }
 }
 
+//
+int Graph::calcSev(vertex* location)
+{
+  int severity = 0;
+  severity += location.structures + location.fuel + location.windSpeed;
+  return severity;
+}
+
 //Add containment
 //Redo code to run through all nodes within function
 void Graph::simulateFire()
 {
   for(int j = 0; vertices.size(); j++)
   {
-    if(vertices[j].isGone)
-    {
-      return;
-    }
-
     if(!vertices[j].onFire)
     {
       int chance = 0;
@@ -63,11 +66,11 @@ void Graph::simulateFire()
         chance += vertices[j].Edges[i].v->severity;
       }
       chance += vertices[j].fuel;
-      int random = rand() % 30 + 1;
-      if(chance >= random)
+      int random = rand() % chance + 1;
+        if(chance/2 >= random)
       {
         vertices[j].onFire = true;
-        vertices[j].severity = 1;
+        vertices[j].severity = calcSev(vertices[j]);
         return;
       }
     }
@@ -77,16 +80,7 @@ void Graph::simulateFire()
       int chance = random + vertices[j].fuel;
       if(chance >= 10)
       {
-        if(vertices[j].severity == 10)
-        {
-          vertices[j].isGone = true;
-          vertices[j].severity = 0;
-          vertices[j].onFire = false;
-        }
-        else
-        {
-          vertices[j].severity++;
-        }
+        vertices[j].severity++;
       }
     }
   }
@@ -201,25 +195,25 @@ int main(int argc, char const *argv[])
   Graph landMap;
   Graph skyMap;
 
-  landMap.addVertex("Rothstown", 3, 150);
-  landMap.addVertex("BoizTrailerPark", 3, 48);
-  landMap.addVertex("Fancytown", 3, 13);
-  landMap.addVertex("IndustrialZone", 4, 75);
-  landMap.addVertex("WestForest", 5, 2);
-  landMap.addVertex("SouthForest", 5, 0);
-  landMap.addVertex("EastForest", 5, 3);
-  landMap.addVertex("Mountains", 1, 1);
-  landMap.addVertex("Southtown", 3, 89);
+  landMap.addVertex("Rothstown", 3, 150, 23);
+  landMap.addVertex("BoizTrailerPark", 3, 48, 25);
+  landMap.addVertex("Fancytown", 3, 13, 24);
+  landMap.addVertex("IndustrialZone", 4, 75, 15);
+  landMap.addVertex("WestForest", 5, 2, 7);
+  landMap.addVertex("SouthForest", 5, 0, 16);
+  landMap.addVertex("EastForest", 5, 3, 29);
+  landMap.addVertex("Mountains", 1, 1, 13);
+  landMap.addVertex("Southtown", 3, 89, 8);
 
-  skyMap.addVertex("Rothstown", 3, 150);
-  skyMap.addVertex("BoizTrailerPark", 3, 48);
-  skyMap.addVertex("Fancytown", 3, 13);
-  skyMap.addVertex("IndustrialZone", 4, 75);
-  skyMap.addVertex("WestForest", 5, 2);
-  skyMap.addVertex("SouthForest", 5, 0);
-  skyMap.addVertex("EastForest", 5, 3);
-  skyMap.addVertex("Mountains", 1, 1);
-  skyMap.addVertex("Southtown", 3, 89);
+  skyMap.addVertex("Rothstown", 3, 150, 23);
+  skyMap.addVertex("BoizTrailerPark", 3, 48, 25);
+  skyMap.addVertex("Fancytown", 3, 13, 24);
+  skyMap.addVertex("IndustrialZone", 4, 75, 15);
+  skyMap.addVertex("WestForest", 5, 2, 7);
+  skyMap.addVertex("SouthForest", 5, 0, 16);
+  skyMap.addVertex("EastForest", 5, 3, 29);
+  skyMap.addVertex("Mountains", 1, 1, 13);
+  skyMap.addVertex("Southtown", 3, 89, 8);
 
   landMap.addEdge("Rothstown", "BoizTrailerPark", 5);
   landMap.addEdge("Rothstown", "Fancytown", 5);
