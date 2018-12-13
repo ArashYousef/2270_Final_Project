@@ -63,23 +63,20 @@ class Graph
 
     void fightFire();
 
-    //void printDFS();
-    //TODO: Might not need this function
-
     void setAllVerticesUnvisited();
     //pretty self explanatory
 
     //pq constructor
     PriorityQueue(int queueSize);
 
-    //pq deconstructor
-    //~PriorityQueue();
 
     //add item to pq
-    void enqueue (std::string _name, int _injurySeverity, int _treatmentTime);
+    void enqueue (vertex* location);
 
     //take item out
     void dequeue();
+
+    void repairUpward(int nodeIndex);
 
     //checks if queue is full
     bool isFull();
@@ -99,11 +96,6 @@ class Graph
 
     //function to calculate severity of fire
     int calcSev(vertex* location);
-
-    // void BFTraversalLabel(std::string startingCity, int distID);
-    //
-    // void DFTraversal(vertex *v);
-    //TODO: Might not need these functions
 
 };
 
